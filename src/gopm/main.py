@@ -75,20 +75,21 @@ def install(project: Project, search: List[str]):
     project.save_packages(installed + [package])
     installed = download_addons(project, package)
 
-    ignore_path = project.path / ".gitignore"
-    MARKER = "# Godot Packages\n"
-    if ignore_path.is_file():
-        with open(ignore_path) as ignore:
-            ignored = ignore.readlines()
-        if MARKER not in ignored:
-            ignored += ["\n", MARKER]
-        marker_pos = ignored.index(MARKER)
-        for addon in installed:
-            ignore_str = f"addons/{addon}\n"
-            if ignore_str not in ignored:
-                ignored.insert(marker_pos + 1, ignore_str)
-        with open(ignore_path, "w") as ignore:
-            ignore.writelines(ignored)
+    """Commenting this section out for now. We don't want the addons auto-added to gitignore."""
+    # ignore_path = project.path / ".gitignore"
+    # MARKER = "# Godot Packages\n"
+    # if ignore_path.is_file():
+    #     with open(ignore_path) as ignore:
+    #         ignored = ignore.readlines()
+    #     if MARKER not in ignored:
+    #         ignored += ["\n", MARKER]
+    #     marker_pos = ignored.index(MARKER)
+    #     for addon in installed:
+    #         ignore_str = f"addons/{addon}\n"
+    #         if ignore_str not in ignored:
+    #             ignored.insert(marker_pos + 1, ignore_str)
+    #     with open(ignore_path, "w") as ignore:
+    #         ignore.writelines(ignored)
 
     print(f"Installed {package.name}")
 
